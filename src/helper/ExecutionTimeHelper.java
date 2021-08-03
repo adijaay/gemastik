@@ -18,6 +18,6 @@ public class ExecutionTimeHelper {
      * @param startTime long
      */
     public static void printExecutionTime(long startTime) {
-        System.out.format("%nExecution time: %d ms", (System.nanoTime() - startTime) / 1000000);
+        System.out.format("%nExecution time: %.2f ms", (double)(System.nanoTime() - startTime) / 1000000);
     }
 }

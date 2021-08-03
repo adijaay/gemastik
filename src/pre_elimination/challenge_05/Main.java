@@ -11,15 +11,16 @@ public class Main {
 
         final Scanner in = new Scanner(System.in);
 
-        final String[] adhi = in.nextLine().trim().split(" ");
-        final String[] vijay = in.nextLine().trim().split(" ");
-
+        final String[] adhi = in.nextLine().split(" ");
+        final String[] vijay = in.nextLine().split(" ");
+        if(adhi.length<3||adhi.length>100||vijay.length<3||vijay.length>100) throw new ArithmeticException("3-100 angka");
         in.close();
-
+        final long startTime = System.nanoTime();
         int[] daduA = new int[adhi.length];
         int maxA = Integer.MIN_VALUE;
         for (int i = 0; i < adhi.length; i++) {
             daduA[i] = Integer.parseInt(adhi[i]);
+            if(daduA[i]<1||daduA[i]>100)throw new ArithmeticException("1-100 saja");
             if (maxA < daduA[i]) maxA = daduA[i];
         }
 
@@ -27,10 +28,9 @@ public class Main {
         int maxB = Integer.MIN_VALUE;
         for (int i = 0; i < vijay.length; i++) {
             daduB[i] = Integer.parseInt(vijay[i]);
+            if(daduB[i]<1||daduB[i]>100)throw new ArithmeticException("1-100 saja");
             if (maxB < daduB[i]) maxB = daduB[i];
         }
-
-        final long startTime = System.nanoTime();
 
         int[] cntA = new int[maxA + 1];
         int[] cntB = new int[maxB + 1];
@@ -68,15 +68,42 @@ public class Main {
                 }
             }
         }
-
+        int y = (int) (menangAdhi * 36);
+        int z = (int) (menangVijay * 36);
+        int bagi = 36;
         if (menangVijay == menangAdhi) {
             System.out.println("Imbang");
         } else if (menangAdhi > menangVijay) {
-            System.out.format("Adhi menang dengan peluang %.2f%n", menangAdhi);
+            for (int i = 0; i < 1; ) {
+                if (y % 2 == 0 && bagi % 2 == 0) {
+                    y = y / 2;
+                    bagi = bagi / 2;
+                } else if (y % 3 == 0 && bagi % 3 == 0) {
+                    y = y / 3;
+                    bagi = bagi / 3;
+                } else if (y % 5 == 0 && bagi % 5 == 0) {
+                    y = y / 5;
+                    bagi = bagi / 5;
+                } else i++;
+                if (i == 1)
+                    System.out.format("Adhi menang dengan peluang %d/%d%n", y, bagi);
+            }
         } else {
-            System.out.format("Vijay menang dengan peluang %.2f%n", menangVijay);
+            for (int i = 0; i < 1; ) {
+                if (z % 2 == 0 && bagi % 2 == 0) {
+                    z = z / 2;
+                    bagi = bagi / 2;
+                } else if (z % 3 == 0 && bagi % 3 == 0) {
+                    z = z / 3;
+                    bagi = bagi / 3;
+                } else if (z % 5 == 0 && bagi % 5 == 0) {
+                    z = z / 5;
+                    bagi = bagi / 5;
+                } else i++;
+                if (i == 1)
+                    System.out.format("Vijay menang dengan peluang %d/%d%n", z, bagi);
+            }
         }
-
         ExecutionTimeHelper.printExecutionTime(startTime);
         MemoryUsageHelper.printMemoryUsage();
     }

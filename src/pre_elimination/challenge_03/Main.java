@@ -126,27 +126,31 @@ public class Main {
         final int m = Math.min(in.nextInt(), 10000);
         final int q = Math.min(in.nextInt(), 100000);
         final int[][] a = new int[n][m];
+        String[] data= new String[q+1];
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 a[i][j] = Math.min(in.nextInt(), 10000);
             }
         }
-
+        for(int i=0; i<=q;i++){
+            data[i]=in.nextLine();
+        }
+        in.close();
+        final long startTime = System.nanoTime();
         for (int i = 0; i < q; i++) {
-            final int x1 = in.nextInt() - 1, y1 = in.nextInt() - 1, x2 = in.nextInt() - 1, y2 = in.nextInt() - 1;
-            final long startTime = System.nanoTime();
+            String[] c = data[i+1].split(" ");
+            int x1=Integer.parseInt(c[0]),y1=Integer.parseInt(c[1]),x2=Integer.parseInt(c[2]),y2=Integer.parseInt(c[3]);
             int sum = 0;
-            for (int j = x1; j <= x2; j++) {
-                for (int k = y1; k <= y2; k++) {
+            for (int j = x1-1; j <= x2-1; j++) {
+                for (int k = y1-1; k <= y2-1; k++) {
                     sum += a[j][k];
                 }
             }
-            System.out.print(sum);
-            ExecutionTimeHelper.printExecutionTime(startTime);
-            MemoryUsageHelper.printMemoryUsage();
+            System.out.println(sum);
         }
 
-        in.close();
+        ExecutionTimeHelper.printExecutionTime(startTime);
+        MemoryUsageHelper.printMemoryUsage();
     }
 }
